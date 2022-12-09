@@ -8,7 +8,7 @@
  - 09/12 : Découverte du sujet + Discussions avec JDD
 	 - Communication : Discord (cf. Amar)
 	 - Sujet BE
-		 - Difficulté des matériaux opaques npn-Lambertien
+		 - Difficulté des matériaux opaques non-Lambertien
 		 - BRDF
 			 - définition : description de la réémission de la lumière par la surface
 			 - 5 paramètres (theta_e, phi_e, theta_sigma, phi_sigma, lambda)
