@@ -20,3 +20,4 @@
 		 - Comprendre la BRDF (cf. HDR de JDD)
 	 - Outputs
 		 - Une première piste pour estimer les paramètres d'une BRDF (avec composante spéculaire) serait d'utiliser les données réels (connues) pour minimiser l'écart entre la RTI et les données.
+ - 13/12
