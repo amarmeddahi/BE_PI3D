@@ -20,4 +20,17 @@
 		 - Comprendre la BRDF (cf. HDR de JDD)
 	 - Outputs
 		 - Une première piste pour estimer les paramètres d'une BRDF (avec composante spéculaire) serait d'utiliser les données réels (connues) pour minimiser l'écart entre la RTI et les données.
- - 13/12
+ - 13/12 : Discussions JDD + JM
+	 - Problème affiné : **Estimation de la reflectance par PS avec des données de RTI**
+	 - Outputs :
+		 - Utiliser les données en Grayscale
+		 - Vérifier la cohérence du repère pour le dataset Silex (i.e., z toujours négatif et regarder par rapport à la direction de s)
+		 - (bonus) notre problème se rapproche (à quel point?) à du rendu différentiable (à investiguer potentiellement)
+		 - Solution possible
+			 - Idée : Travailler avec la PS sur un modèle type Phong (i.e., albedo scalaire + speculaire scalaire) --> photo gallery à intégrer 
+				 - Détails :
+					 - On estime la normale n et le rho diffus avec PS, on suppose s connu (éclairage uniforme et //)
+			 - Approche
+				 - Step 1 : Estimation avec PS Robuste de rho_d et la normale (s connu)
+				 - Step 2 : Equation Ax = B à résoudre pour estimer les paramètres (en l'espèce modèle de Phong)
+				 - Step 3 : Evaluation
