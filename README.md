@@ -6,31 +6,26 @@
 # Ressources
  - [Mémoire de fin d'études : Étude et modélisation de la réflectance de la surface d'objets réels](https://domurado.pagesperso-orange.fr/Memoire/)
  - [Dataset RTI](https://sharedocs.huma-num.fr/wl/?id=W4u65Lh4fWGCcrc9aKAIsnqWcu0meKym)
+ - [Yvain Quéau GitHub (normal_integration + robust_ps)](https://github.com/yqueau)
 
 # Séances
- - 09/12 : Découverte du sujet + Discussions avec JDD
-	 - Communication : Discord (cf. Amar)
-	 - Sujet BE
-		 - Difficulté des matériaux opaques non-Lambertien
-		 - BRDF
-			 - définition : description de la réémission de la lumière par la surface
-			 - 5 paramètres (theta_e, phi_e, theta_sigma, phi_sigma, lambda)
-			 - BRDF Lambert = albedo (R ou R3)
-	 - TODO
-		 - Comprendre la BRDF (cf. HDR de JDD)
-	 - Outputs
-		 - Une première piste pour estimer les paramètres d'une BRDF (avec composante spéculaire) serait d'utiliser les données réels (connues) pour minimiser l'écart entre la RTI et les données.
- - 13/12 : Discussions JDD + JM
-	 - Problème affiné : **Estimation de la reflectance par PS avec des données de RTI**
-	 - Outputs :
-		 - Utiliser les données en Grayscale
-		 - Vérifier la cohérence du repère pour le dataset Silex (i.e., z toujours négatif et regarder par rapport à la direction de s)
-		 - (bonus) notre problème se rapproche (à quel point?) à du rendu différentiable (à investiguer potentiellement)
-		 - Solution possible
-			 - Idée : Travailler avec la PS sur un modèle type Phong (i.e., albedo scalaire + speculaire scalaire) --> photo gallery à intégrer 
-				 - Détails :
-					 - On estime la normale n et le rho diffus avec PS, on suppose s connu (éclairage uniforme et //)
-			 - Approche
-				 - Step 1 : Estimation avec PS Robuste de rho_d et la normale (s connu)
-				 - Step 2 : Equation Ax = B à résoudre pour estimer les paramètres (en l'espèce modèle de Phong)
-				 - Step 3 : Evaluation
+
+ - Abbreviations :  BE (Bureau d'études); JDD (Jean-Denis Durou); JM (Jean Mélou); PS (Photometric stereo)
+ - 09/12 : Découverte du sujet
+	 - Amar est désigné comme POC (Point of Contact). La plateforme Discord sera utilisée.
+	 - Le problème du BE consiste à aborder la difficulté d'obtenir la reflectance pour les matériaux opaques non-Lambertien (i.e., brillant)
+		 - Notions de BRDF (Bidirectional Reflectance Distribution Function)
+			 - La BRDF décrit la réémission de la lumière par une surface
+			 - Elle possède 5 paramètres (theta_e, phi_e, theta_sigma, phi_sigma, lambda)
+			 - Cadre Lambertien => BRDF = albedo (R ou R^3)
+		 - **Première solution** : estimer les paramètres d'une BRDF (avec composante spéculaire) serait d'utiliser les données réels (connues)
+		 - ToDo
+			 - Comprendre la notion de BRDF (voir : HDR de JDD + [Mémoire de fin d'études : Étude et modélisation de la réflectance de la surface d'objets réels](https://domurado.pagesperso-orange.fr/Memoire/))
+ - 13/12 : Définition formelle de la première approche
+	 - Précision sur le titre du BE : **Estimation de la reflectance par PS avec des données de RTI**
+	 - Remarques de JDD + JM
+		 - Commencer par travailler sur les images en nuances de gris (rgb2gray)
+		 - dataset silex : vérifier la cohérence du repère (ex. z toujours négatif et x/y cohérent par rapport à la direction de S
+		 - Le sujet de BE se rapproche à du rendu différentiable
+		 - Estimation de la composante spéculaire dans le cas du modèle de Phong :
+		 
