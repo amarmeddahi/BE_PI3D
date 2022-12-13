@@ -29,5 +29,5 @@
 		 - Le sujet de BE se rapproche à du rendu différentiable
 		 - Estimation de la composante spéculaire dans le cas du modèle de Phong :
 <p align="center">
-  <img src="res/resolution.png" />
+  <img src="res/resolution.jpg" />
 </p>
