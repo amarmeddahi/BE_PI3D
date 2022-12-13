@@ -28,4 +28,6 @@
 		 - dataset silex : vérifier la cohérence du repère (ex. z toujours négatif et x/y cohérent par rapport à la direction de S
 		 - Le sujet de BE se rapproche à du rendu différentiable
 		 - Estimation de la composante spéculaire dans le cas du modèle de Phong :
-		 
+<p align="center">
+  <img src="res/resolution.png" />
+</p>
