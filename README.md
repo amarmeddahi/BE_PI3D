@@ -27,7 +27,7 @@
 		 - Commencer par travailler sur les images en nuances de gris (rgb2gray)
 		 - dataset silex : vérifier la cohérence du repère (ex. z toujours négatif et x/y cohérent par rapport à la direction de S
 		 - Le sujet de BE se rapproche à du rendu différentiable
-		 - Estimation de la composante spéculaire dans le cas du modèle de Phong :
+		 - Estimation de la composante spéculaire dans le cas du modèle de Phong (attention v et sigma sont inversés) :
 <p align="center">
   <img width="50%" src="res/resolution.jpg" />
 </p>
