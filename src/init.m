@@ -8,7 +8,7 @@ imageFiles = dir(strcat(imgs_path,extension)); % Replace 'folder_name' with the 
 numFiles = length(imageFiles);
 
 % Initialize the 3D tensor for storing the images
-scale = 0.5; % resize factor
+scale = 0.25; % resize factor
 [row, col, ~] = size(imresize(imread(strcat(imgs_path,imageFiles(1).name)), scale));
 data.I = zeros(row, col, numFiles); % Replace 'row' and 'col' with the desired size for the images
 
@@ -17,7 +17,7 @@ lights_path = 'silex_dvpt/RTI/assembly-files/lumiere.txt';
 fid = fopen(lights_path, 'r');
 
 % Initialize the matrix to hold the data
-calib.S = zeros(numFiles, 3);
+calib.S = zeros(numFiles, 3); % traditional CV coordinate system
 
 % Loop through all the image files
 for i = 1:numFiles
@@ -25,7 +25,7 @@ for i = 1:numFiles
     image = imread(strcat(imgs_path,imageFiles(i).name));
 
     % Convert the image to grayscale
-    image = rgb2gray(image);
+    image = im2double(rgb2gray(image));
 
     % Resize the image
     image = imresize(image, scale);
@@ -40,7 +40,7 @@ for i = 1:numFiles
     tokens = strsplit(line, ' ');
     
     % Store the data in the matrix
-    calib.S(i,:) = [str2double(tokens{2}); str2double(tokens{3}); str2double(tokens{4})];
+    calib.S(i,:) = [str2double(tokens{2}); -str2double(tokens{3}); -str2double(tokens{4})];
 end
 
 % Close the file
