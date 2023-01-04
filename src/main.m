@@ -22,7 +22,7 @@ lightDirections = S;
 rho_d = rho_d(:);
 % Loop over each light
 for i = 1:numLights
-   specularDirections(i,:,:) = 2 * sum(lightDirections(i, :) .* normalVectors,2) .* (normalVectors -  lightDirections(i, :));
+   specularDirections(i,:,:) = 2 * sum(lightDirections(i, :) .* normalVectors,2) .* normalVectors -  lightDirections(i, :);
 end
 
 % Build the system Ax = b
