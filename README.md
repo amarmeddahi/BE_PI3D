@@ -31,3 +31,20 @@
 <p align="center">
   <img width="50%" src="res/resolution.jpg" />
 </p>
+
+ - 05/01 : Implémentation de la reflectance du modèle de Phong + critères d'estimation
+	 -  améliorations :
+		 - appliquer un masque binaire pour isoler le sujet (à faire avant robust_ps_v2)
+		 - soustraire l'éclairage ambient aux images  RTI
+	 - argument ln négatifs :
+		 - `I - rho_d * dot(n,s) <= eps`
+			 - Le résidu peut-être positif ou négatif
+			 - Solution :
+				 -  `max(0,dot(n,s))`
+				 - garder uniquement les éclairages associées aux résidus positifs
+			 - Si des points dans le masque sont associées à des résidus négatifs pour les toujours éclairages --> enquêter (ex. afficher ces points)
+		 - `dot(r,v) <= eps`
+			 -  Le produit scalaire peut-être négatif pour plusieurs scénarios
+			 - Solutions :
+				 - fixer `alpha`
+				 - chercher comment ce problème est résolu en rendu
