@@ -6,9 +6,9 @@ load('data.mat', 'data')
 load('calib.mat', 'calib')
 
 % Load robust_PS data
-load('N.mat','N')
-load('rho_d.mat','rho_d')
-load('S.mat','S')
+load('data_ps/N.mat','N')
+load('data_ps/rho_d.mat','rho_d')
+load('data_ps/S.mat','S')
 
 % Phong model
 v = [0 0 -1]; % view direction
