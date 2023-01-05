@@ -53,9 +53,10 @@ albdeo_spec = exp(specularParameters(:,1));
 coeff_spec = specularParameters(:,2);
 
 % Results
-I_ref = data.I(:,:,1);
-I_diff = reshape(albdeo_diff .* sum(lightDirections(1, :) .* normalVectors,2), [r c]);
-I_Phong = I_diff + reshape(albdeo_spec .* (abs(sum(v .* squeeze(specularDirections(1,:,:)),2))).^coeff_spec , [r c]);
+i_ref = 30;
+I_ref = data.I(:,:,i_ref);
+I_diff = reshape(albdeo_diff .* sum(lightDirections(i_ref, :) .* normalVectors,2), [r c]);
+I_Phong = I_diff + reshape(albdeo_spec .* (abs(sum(v .* squeeze(specularDirections(i_ref,:,:)),2))).^coeff_spec , [r c]);
 
 % Residuals
 method = mean((I_ref - I_diff).^2,"all");
