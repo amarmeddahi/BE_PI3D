@@ -4,7 +4,7 @@ close all;
 % Load images and lights
 load('data.mat', 'data')
 load('calib.mat', 'calib')
-
+a = 2
 % Load robust_PS data
 load('data_ps/N.mat','N')
 load('data_ps/rho.mat','rho')
