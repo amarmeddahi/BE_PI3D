@@ -7,7 +7,7 @@ load('calib.mat', 'calib')
 
 % Load robust_PS data
 load('data_ps/N.mat','N')
-load('data_ps/rho_d.mat','rho_d')
+load('data_ps/rho.mat','rho')
 load('data_ps/S.mat','S')
 
 % Phong model
