@@ -9,6 +9,7 @@ load('calib.mat', 'calib')
 load('data_ps/N.mat','N')
 load('data_ps/rho.mat','rho')
 load('data_ps/S.mat','S')
+load('data_ps/mask.mat','mask')
 
 % Phong model
 v = [0 0 -1]; % view direction
@@ -19,34 +20,31 @@ numLights = size(S,1);
 numPixels = size(normalVectors,1);
 specularDirections = zeros([numLights numPixels 3]);
 lightDirections = S;
-rho_d = rho_d(:);
+rho_d = rho(:);
 % Loop over each light
 for i = 1:numLights
    specularDirections(i,:,:) = 2 * sum(lightDirections(i, :) .* normalVectors,2) .* normalVectors -  lightDirections(i, :);
 end
 
 % Build the system Ax = b
-A = zeros([numLights numPixels 2]);
+A = ones([numLights numPixels 2]);
 b = zeros([numLights numPixels]);
 
 for i = 1:numLights
-    A(i,:,1) = 1;
     A(i,:,2) = log(abs(sum(v .* squeeze(specularDirections(i,:,:)),2))); % add abs (mistake?)
     b(i,:) = log(abs(reshape(data.I(:,:,i),[],1) - rho_d .* sum(lightDirections(i, :) .* normalVectors,2)));
 end
 
 % Solving
-x = zeros([numLights numPixels 2]);
-for i = 1:numLights
-    A_i = squeeze(A(i,:,:));
-    b_i = b(i,:);
-    for j = 1:numPixels
-        x(i,j,:) = A_i(j,:)\b_i(j);
-    end
+x = zeros([numPixels 2]);
+for i = 1:numPixels
+    A_i = squeeze(A(:,i,:));
+    b_i = b(:,i);
+    x(i,:) = A_i\b_i;
 end
 
 % Robust estimation of the specular parameters
-specularParameters = squeeze(median(x,1));
+specularParameters = x;
 
 % Parameters
 [r, c, ~] = size(data.I);
@@ -55,9 +53,14 @@ albdeo_spec = exp(specularParameters(:,1));
 coeff_spec = specularParameters(:,2);
 
 % Results
-I_ref = data.I(:,:,1);
-I_diff = reshape(albdeo_diff .* sum(lightDirections(1, :) .* normalVectors,2), [r c]);
-I_Phong = I_diff + reshape(albdeo_spec .* (abs(sum(v .* squeeze(specularDirections(1,:,:)),2))).^coeff_spec , [r c]);
+i_ref = 30;
+I_ref = data.I(:,:,i_ref);
+I_diff = reshape(albdeo_diff .* sum(lightDirections(i_ref, :) .* normalVectors,2), [r c]);
+I_Phong = I_diff + reshape(albdeo_spec .* (abs(sum(v .* squeeze(specularDirections(i_ref,:,:)),2))).^coeff_spec , [r c]);
+
+% Residuals
+method = mean((I_ref - I_diff).^2,"all");
+ours = mean((I_ref - I_Phong).^2,"all");
 
 figure;
 subplot(1,3,1);
